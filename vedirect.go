@@ -6,7 +6,7 @@ import (
 	"log"
 	//"os"
 	//"strings"
-  "github.com/tarm/serial"
+	"github.com/tarm/serial"
 )
 
 const (
@@ -23,7 +23,7 @@ type Block struct {
 }
 
 func (b Block) Validate() bool {
-	if b.checksum % 256 == 0 {
+	if b.checksum%256 == 0 {
 		return true
 	}
 	return false
@@ -32,7 +32,7 @@ func (b Block) Validate() bool {
 type Stream struct {
 	Device string
 	//Port   *os.File
-	Port *serial.Port
+	Port  *serial.Port
 	State int
 }
 
@@ -46,17 +46,17 @@ func NewStream(dev string) Stream {
 	s.State = 0
 	var err error
 
-  c := &serial.Config{Name: s.Device, Baud: 19200}
-  s.Port, err = serial.OpenPort(c)
-  if err != nil {
-    log.Fatal(err)
-  }
-/*
-	s.Port, err = os.Open(s.Device)
+	c := &serial.Config{Name: s.Device, Baud: 19200}
+	s.Port, err = serial.OpenPort(c)
 	if err != nil {
 		log.Fatal(err)
 	}
-*/
+	/*
+		s.Port, err = os.Open(s.Device)
+		if err != nil {
+			log.Fatal(err)
+		}
+	*/
 	fmt.Println("Stream initialized:", s)
 	return s
 }
@@ -92,7 +92,7 @@ func (s *Stream) ReadBlock() (Block, int) {
 		// catch and ignore VE.Direct HEX frames from stream, otherwise
 		// they mess up our checksum and we lose the current block.
 		if char == ':' { // ":": beginning of frame
-		//if str == ":" { // ":": beginning of frame
+			//if str == ":" { // ":": beginning of frame
 			prev_state = s.State // save state
 			s.State = InFrame
 			frame_length = 1
