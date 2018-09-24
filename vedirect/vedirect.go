@@ -91,7 +91,7 @@ func (s *Stream) ReadBlock() (Block, int) {
 		// HEX mode is documented in BlueSolar-HEX-protocol-MPPT.pdf.
 		// catch and ignore VE.Direct HEX frames from stream, otherwise
 		// they mess up our checksum and we lose the current block.
-		if char == ':' { // ":": beginning of frame
+		if char == ':' && s.State != InChecksum { // ":": beginning of frame
 			//if str == ":" { // ":": beginning of frame
 			prev_state = s.State // save state
 			s.State = InFrame
