@@ -1,13 +1,16 @@
 package main
 
 import (
+  "flag"
   "fmt"
 //  "vedirect"
   "github.com/rosenstand/go-vedirect/vedirect"
 )
 
 func main() {
-	s := vedirect.NewStream("/dev/ttyUSB0")
+  deviceFlag := flag.String("dev", "/dev/ttyUSB0", "full path to serial device node")
+  flag.Parse()
+	s := vedirect.NewStream(*deviceFlag)
 	fmt.Println(s)
 	for {
 		b, checksum := s.ReadBlock()
