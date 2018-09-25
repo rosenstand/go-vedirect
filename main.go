@@ -8,9 +8,10 @@ import (
 )
 
 func main() {
-  deviceFlag := flag.String("dev", "/dev/ttyUSB0", "full path to serial device node")
+  var device string
+  flag.StringVar(&device, "dev", "/dev/ttyUSB0", "full path to serial device node")
   flag.Parse()
-	s := vedirect.NewStream(*deviceFlag)
+	s := vedirect.NewStream(device)
 	fmt.Println(s)
 	for {
 		b, checksum := s.ReadBlock()
