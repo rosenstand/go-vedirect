@@ -25,6 +25,7 @@ for {
 
 ## TODO
 
-- [ ] Use a larger buffer instead of doing a read() for every byte.
-- [ ] Improvements to interface and naming.
 - [ ] Proper error handling.
+- [ ] Godoc support.
+- [ ] Use a larger buffer instead of doing a read() for every byte.
+- [ ] Improve interface and naming.
